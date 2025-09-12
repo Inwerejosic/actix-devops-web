@@ -1,0 +1,27 @@
+[package]
+name = "actix-devops-web"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+actix-web = "4"
+actix-files = "0.6"
+# For template rendering in actix-web
+tera = "1.19"
+# For data serialization
+serde = { version = "1.0", features = ["derive"] }
+dotenv = "0.15.0"
+
+# Database and time dependencies
+diesel = { version = "2.1.0", features = ["postgres", "r2d2", "chrono"] }
+diesel_migrations = "2.0"
+r2d2 = "0.8"
+chrono = { version = "0.4", features = ["serde"] }
+# diesel = { version = "2.2.0", features = ["postgres", "] }
+# chrono = { version = "0.4", features = ["serde"] }
+
+
+
+# logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["fmt"] }
