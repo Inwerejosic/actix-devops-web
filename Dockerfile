@@ -39,3 +39,7 @@ EXPOSE 8080
 
 # Default command (DATABASE_URL supplied at runtime via docker-compose or env file)
 CMD ["/usr/local/bin/app"]
+
+
+
+# I employed multistagee build to ensure I get a very small image at the end of the build process and it was achieved.

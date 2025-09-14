@@ -8,7 +8,7 @@ pub struct IpLog {
     pub id: i32,
     pub original_ip: String,
     pub reversed_ip: String,
-    pub created_at: chrono::DateTime<chrono::Utc>, // ✅ TIMESTAMPTZ maps to DateTime<Utc>
+    pub created_at: chrono::DateTime<chrono::Utc>,
 }
 
 #[derive(Insertable)]
