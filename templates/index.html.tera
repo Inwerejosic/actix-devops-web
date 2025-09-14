@@ -7,33 +7,55 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body class="container mt-5">
+        <div class="text-center my-4">
         <h1>Your reversed IP</h1>
-         <div class="alert alert-primary">
-            Original: <strong>{{ original_ip }}</strong><br>
-            Reversed: <strong>{{ reversed_ip }}</strong>
-         </div>
+            <div class="alert alert-primary d-inline-block text-start">
+                Original: <strong>{{ original_ip }}</strong><br>
+                Reversed: <strong>{{ reversed_ip }}</strong>
+            </div>
+        </div>
 
 
-         <h2 class="mt-4">Recent visitors</h2>
-         <table class="table table-striped">
+
+         <h2 class="mt-4 text-center">Recent visitors</h2>
+         <table class="table table-dark table-striped w-100 text-center" style="table-layout: fixed;">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Original</th>
-                    <th>Reversed</th>
-                    <th>At</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Reversed</th>
+                    <th scope="col">At</th>
                 </tr>
             </thead>
             <tbody>
                 {% for l in logs %}
                 <tr>
                     <td>{{ l.id }}</td>
-                    <td>{{ l.original_ip }}</td>
                     <td>{{ l.reversed_ip }}</td>
-                    <td>{{ l.created_at }}</td>
+                    <td data-time="{{ l.created_at }}">{{ l.created_at }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
-         </table>
+        </table>
+
     </body>
 </html>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("td[data-time]").forEach(td => {
+        const iso = td.getAttribute("data-time");
+        if (iso) {
+            const date = new Date(iso);
+            // Format: YYYY-MM-DD HH:mm:ss (local time)
+            td.textContent = date.toLocaleString(undefined, {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            });
+        }
+    });
+});
+</script>
