@@ -1,3 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: actix-devops-web
+  namespace: actix       # <--- Add this
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: actix-devops-web
+        image: inwerejosic/actix-devops-web:latest
+        ports:
+        - containerPort: 8080
+
+
+
 # apiVersion: apps/v1
 # kind: Deployment
 # metadata:
@@ -13,30 +36,8 @@
 #         app: my-app
 #     spec:
 #       containers:
-#       - name: actix-devops-web
+#       - name: my-app-container
 #         image: inwerejosic/actix-devops-web:latest
         
 #         ports:
-#         - containerPort: 8080
-
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: deployment
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: my-app
-  template:
-    metadata:
-      labels:
-        app: my-app
-    spec:
-      containers:
-      - name: my-app-container
-        image: inwerejosic/actix-devops-web:latest
-        
-        ports:
-        - containerPort: 8080      
+#         - containerPort: 8080      
