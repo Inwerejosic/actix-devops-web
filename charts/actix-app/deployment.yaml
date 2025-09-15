@@ -14,10 +14,10 @@ spec:
         app: actix-devops-web
     spec:
       containers:
-      - name: actix-devops-web
+        name: actix-devops-web
         image: inwerejosic/actix-devops-web:latest
         ports:
-        - containerPort: 8080
+          - containerPort: 8080
         env:
           - name: DATABASE_URL
             value: postgres://postgres:postgres@localhost:5432/postgres
