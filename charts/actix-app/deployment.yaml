@@ -4,7 +4,7 @@ metadata:
   name: actix-devops-web
   namespace: actix
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: actix-devops-web
@@ -18,3 +18,6 @@ spec:
         image: inwerejosic/actix-devops-web:latest
         ports:
         - containerPort: 8080
+        env:
+          - name: DATABASE_URL
+            value: postgres://postgres:postgres@actix-devops-web-postgres:5432/postgres
