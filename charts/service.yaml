@@ -5,7 +5,7 @@ metadata:
   namespace: actix
 spec:
   selector:
-    app: my-app
+    app: actix-devops-web  
   type: NodePort
   ports:
     - protocol: TCP
