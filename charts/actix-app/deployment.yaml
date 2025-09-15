@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: actix-devops-web
-  namespace: actix        
+  namespace: actix
 spec:
   replicas: 1
   selector:
@@ -16,6 +16,5 @@ spec:
       containers:
       - name: actix-devops-web
         image: inwerejosic/actix-devops-web:latest
-        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
