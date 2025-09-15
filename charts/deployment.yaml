@@ -6,15 +6,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: actix-devops-web
+      app: my-app
   template:
     metadata:
       labels:
-        app: actix-devops-web
+        app: my-app
     spec:
       containers:
       - name: actix-devops-web
         image: inwerejosic/actix-devops-web:latest
         
         ports:
-        - containerPort: 80
+        - containerPort: 8080
