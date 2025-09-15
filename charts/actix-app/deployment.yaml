@@ -16,21 +16,11 @@ spec:
       containers:
       - name: actix-devops-web
         image: inwerejosic/actix-devops-web:latest
-        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         env:
-          # Point to internal Postgres
           - name: DATABASE_URL
             value: postgres://postgres:postgres@localhost:5432/postgres
-        # Ensure Actix binds to 0.0.0.0:8080
-        command: ["sh", "-c"]
-        args:
-          - |
-            echo "Starting Actix server..."
-            # Start your internal Postgres if needed here (depends on image)
-            # Then start Actix binding to 0.0.0.0
-            ./start-actix.sh --bind 0.0.0.0:8080
         readinessProbe:
           tcpSocket:
             port: 8080
@@ -41,3 +31,17 @@ spec:
             port: 8080
           initialDelaySeconds: 10
           periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: actix-devops-web
+  namespace: actix
+spec:
+  selector:
+    app: actix-devops-web
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
