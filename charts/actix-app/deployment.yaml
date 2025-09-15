@@ -30,4 +30,4 @@ spec:
           tcpSocket:
             port: 8080
           initialDelaySeconds: 25
-          periodSeconds: 30
+          periodSeconds: 1
