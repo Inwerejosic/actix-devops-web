@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: actix-devops-web
+  template:
+    metadata:
+      labels:
+        app: actix-devops-web
+    spec:
+      containers:
+      - name: actix-devops-web
+        image: inwerejosic/actix-devops-web:latest
+        
+        ports:
+        - containerPort: 80
