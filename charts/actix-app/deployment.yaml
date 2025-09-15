@@ -1,3 +1,28 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: actix-devops-web
+#   namespace: actix
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: actix-devops-web
+#   template:
+#     metadata:
+#       labels:
+#         app: actix-devops-web
+#     spec:
+#       containers:
+#       - name: actix-devops-web
+#         image: inwerejosic/actix-devops-web:latest
+#         ports:
+#         - containerPort: 8080
+#         env:
+#           - name: DATABASE_URL
+#             value: postgres://postgres:postgres@actix-devops-web-postgres:5432/postgres
+
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,8 +41,34 @@ spec:
       containers:
       - name: actix-devops-web
         image: inwerejosic/actix-devops-web:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         env:
+          # Point the app to the internal Postgres
           - name: DATABASE_URL
-            value: postgres://postgres:postgres@actix-devops-web-postgres:5432/postgres
+            value: postgres://postgres:postgres@localhost:5432/postgres
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: actix-devops-web
+  namespace: actix
+spec:
+  selector:
+    app: actix-devops-web
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
