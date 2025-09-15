@@ -1,7 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
+  # name: {{ include "actix-devops-web.fullname" . }}
+  # metadata:
   name: {{ include "actix-devops-web.fullname" . }}
+  namespace: actix
+
   labels:
     app: {{ include "actix-devops-web.name" . }}
 spec:

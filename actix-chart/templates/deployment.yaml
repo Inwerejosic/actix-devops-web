@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "actix-devops-web.fullname" . }}
+  namespace: actix
   labels:
     app: {{ include "actix-devops-web.name" . }}
 spec:
@@ -33,3 +34,4 @@ spec:
               port: 8080
             initialDelaySeconds: 10
             periodSeconds: 15
+
