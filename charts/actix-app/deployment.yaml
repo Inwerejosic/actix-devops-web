@@ -4,7 +4,7 @@ metadata:
   name: actix-devops-web
   namespace: actix
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: actix-devops-web
