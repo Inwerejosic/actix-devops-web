@@ -11,7 +11,7 @@ service:
   targetPort: 8080
 
 env:
-  # Replace this with your external Postgres host (could be a service in GKE or Cloud SQL)
-  DATABASE_URL: postgres://postgres:postgres@actix-postgres.external.svc.cluster.local:5432/postgres
+  - name: DATABASE_URL
+    value: postgres://postgres:postgres@actix-postgres:5432/postgres
 
 resources: {}
