@@ -1,0 +1,6 @@
+apiVersion: v2
+name: actix-devops-web
+description: Helm chart for Actix DevOps Web with external Postgres
+type: application
+version: 0.1.0
+appVersion: "latest"

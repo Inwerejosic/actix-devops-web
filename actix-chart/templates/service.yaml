@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "actix-devops-web.fullname" . }}
+  labels:
+    app: {{ include "actix-devops-web.name" . }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: {{ include "actix-devops-web.name" . }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}

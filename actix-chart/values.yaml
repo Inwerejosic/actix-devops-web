@@ -1,0 +1,17 @@
+replicaCount: 1
+
+image:
+  repository: inwerejosic/actix-devops-web
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 8080
+
+env:
+  # Replace this with your external Postgres host (could be a service in GKE or Cloud SQL)
+  DATABASE_URL: postgres://postgres:postgres@actix-postgres.external.svc.cluster.local:5432/postgres
+
+resources: {}
