@@ -31,17 +31,17 @@ spec:
             port: 8080
           initialDelaySeconds: 10
           periodSeconds: 15
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: actix-devops-web
-#   namespace: actix
-# spec:
-#   selector:
-#     app: actix-devops-web
-#   type: LoadBalancer
-#   ports:
-#     - protocol: TCP
-#       port: 80
-#       targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: actix-devops-web
+  namespace: actix
+spec:
+  selector:
+    app: actix-devops-web
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
