@@ -1,3 +1,4 @@
+namespace: actix
 replicaCount: 1
 
 image:
@@ -11,7 +12,4 @@ service:
   targetPort: 8080
 
 env:
-  - name: DATABASE_URL
-    value: postgres://postgres:postgres@actix-postgres:5432/postgres
-
-resources: {}
+  DATABASE_URL: postgres://postgres:postgres@actix-postgres:5432/postgres
