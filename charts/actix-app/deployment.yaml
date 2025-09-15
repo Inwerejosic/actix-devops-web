@@ -19,15 +19,29 @@ spec:
         ports:
         - containerPort: 8080
         env:
-        - name: DATABASE_URL
-          value: postgres://postgres:postgres@localhost:5432/postgres
+          - name: DATABASE_URL
+            value: postgres://postgres:postgres@localhost:5432/postgres
         readinessProbe:
           tcpSocket:
             port: 8080
-          initialDelaySeconds: 25
-          periodSeconds: 30
+          initialDelaySeconds: 5
+          periodSeconds: 10
         livenessProbe:
           tcpSocket:
             port: 8080
-          initialDelaySeconds: 25
-          periodSeconds: 1
+          initialDelaySeconds: 10
+          periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: actix-devops-web
+  namespace: actix
+spec:
+  selector:
+    app: actix-devops-web
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
