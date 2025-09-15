@@ -15,42 +15,32 @@ spec:
       labels:
         app: {{ include "actix-devops-web.name" . }}
     spec:
-      # containers:
-      #   - name: {{ include "actix-devops-web.name" . }}
-      #     image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-      #     imagePullPolicy: {{ .Values.image.pullPolicy }}
-      #     ports:
-      #       - containerPort: 8080
-      #     env:
-      #       - name: DATABASE_URL
-      #         value: "{{ .Values.env.DATABASE_URL }}"
-      #     readinessProbe:
-      #       tcpSocket:
-      #         port: 8080
-      #       initialDelaySeconds: 5
-      #       periodSeconds: 10
-      #     livenessProbe:
-      #       tcpSocket:
-      #         port: 8080
-      #       initialDelaySeconds: 10
-      #       periodSeconds: 15
-
-containers:
-  - name: actix-devops-web
-    image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-    imagePullPolicy: {{ .Values.image.pullPolicy }}
-    ports:
-      - containerPort: 8080
-    env:
-      - name: DATABASE_URL
-        value: "{{ .Values.env.DATABASE_URL }}"
-    command:
-      - sh
-      - -c
-      - |
-        echo "Waiting for Postgres..."
-        until pg_isready -h actix-postgres -U postgres; do
-          sleep 2
-        done
-        echo "Postgres ready, starting Actix..."
-        /usr/local/bin/app
+      containers:
+        - name: actix-devops-web
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DATABASE_URL
+              value: "{{ .Values.env.DATABASE_URL }}"
+          command:
+            - sh
+            - -c
+            - |
+              echo "Waiting for Postgres..."
+              until pg_isready -h actix-postgres -U postgres; do
+                sleep 2
+              done
+              echo "Postgres ready, starting Actix..."
+              /usr/local/bin/app
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 15
