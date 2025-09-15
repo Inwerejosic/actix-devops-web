@@ -16,8 +16,28 @@ spec:
       containers:
       - name: actix-devops-web
         image: inwerejosic/actix-devops-web:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         env:
+          # Point to internal Postgres
           - name: DATABASE_URL
-            value: postgres://postgres:postgres@actix-devops-web-postgres:5432/postgres
+            value: postgres://postgres:postgres@localhost:5432/postgres
+        # Ensure Actix binds to 0.0.0.0:8080
+        command: ["sh", "-c"]
+        args:
+          - |
+            echo "Starting Actix server..."
+            # Start your internal Postgres if needed here (depends on image)
+            # Then start Actix binding to 0.0.0.0
+            ./start-actix.sh --bind 0.0.0.0:8080
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 15

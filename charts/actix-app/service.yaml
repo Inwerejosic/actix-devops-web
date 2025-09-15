@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     app: actix-devops-web
-  type: LoadBalancer  
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 80
